@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Person {
+- id:Long
+- surname:String
+- name:String
+- age:int
+- gender:String
++ Person(surname:String, name:String, age:int, gender:String)
++ getID():long
++ getSurname():String
++ getName():String
++ getAge():int
++ getGender():String
++ setSurname():String
++ setName():String
++ setAge():int
++ setGender():String
+}
+
+
+@enduml

@@ -1,0 +1,22 @@
+package ch.hslu.sw06;
+
+public final class Circle_sw06 extends Shape_sw06 {
+    private double diameter;
+    public Circle_sw06(final int x, final int y, final int diameter) {
+        super(x, y);
+        this.diameter = diameter;
+    }
+    public final void setDiameter (final int diameter) {
+        this.diameter = diameter;
+    }
+    public final double getDiameter () {
+        return diameter;
+    }
+    @Override
+    public final double getPerimeter () {
+        return diameter * Math.PI;
+    }
+    public final double getArea () {
+        return Math.PI * Math.pow((diameter / 2),2);
+    }
+}

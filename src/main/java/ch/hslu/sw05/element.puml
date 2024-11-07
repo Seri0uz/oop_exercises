@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Element {
+- tempCelsius : float
+- meltingPoint : float
+- boilingPoint : float
+# Element(meltingPoint : float, boilingPoint : float)
++ getTempCelsius() : float
++ getMeltingPoint () : float
++ getBoilingPoint () : float
++ getAggregationState(meltingPoint : float, boilingPoint : float) : String
+
+}
+
+class N  {
++ N()
+}
+
+class Hg {
++ Hg()
+}
+
+class Pb {
++ Pb()
+}
+Element <|-- N
+Element <|-- Hg
+Element <|-- Pb
+@enduml
