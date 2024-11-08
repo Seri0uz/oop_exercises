@@ -4,7 +4,7 @@ import ch.hslu.demo.Point;
 
 import java.util.Objects;
 
-public class Point_sw07 {
+public class Point_sw07 implements Comparable<Point_sw07> {
     private int x;
     private int y;
 
@@ -130,5 +130,15 @@ public class Point_sw07 {
     @Override
     public final int hashCode() {
         return Objects.hash(x,y);
+    }
+
+    @Override
+    public int compareTo(Point_sw07 point) {
+        int compare = Integer.compare(this.x,this.x);
+        if (compare == 0) {
+            compare = Integer.compare(point.y,this.y);
+        }
+        return compare;
+
     }
 }

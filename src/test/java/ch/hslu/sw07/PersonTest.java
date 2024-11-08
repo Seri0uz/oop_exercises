@@ -8,7 +8,7 @@ import nl.jqno.equalsverifier.*;
 
 class PersonTest {
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         long id = 1;
         String name = "Samuel";
         String surname = "Duss";
@@ -23,56 +23,56 @@ class PersonTest {
     }
 
     @Test
-    public void equalsContract() {
+    void equalsContract() {
         EqualsVerifier.forClass(Person.class).suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
     @Test
-    public void equalPersonTrue(){
+    void equalPersonTrue(){
         Person person1 = new Person(1, "Hans", "Meier", 20, "Male");
-        assertTrue(person1.equals(person1));
+        assertEquals(person1, person1);
     }
 
     @Test
-    public void equalPersonFalse(){
-        Person person1 = new Person(1, "Hans", "Meier", 20, "Male");
-        Person person2 = new Person(2, "Peter", "Meier", 20, "Male");
-        assertFalse(person1.equals(person2));
-    }
-
-    @Test
-    public void hashEqualPersonTrue(){
-        Person person1 = new Person(1, "Hans", "Meier", 20, "Male");
-        Person person2 = new Person(1, "Hans", "Meier", 20, "Male");
-        assertTrue(person1.hashCode() == person2.hashCode());
-    }
-
-    @Test
-    public void hashEqualPersonFalse(){
+    void equalPersonFalse(){
         Person person1 = new Person(1, "Hans", "Meier", 20, "Male");
         Person person2 = new Person(2, "Peter", "Meier", 20, "Male");
-        assertFalse(person1.hashCode() == person2.hashCode());
+        assertNotEquals(person1, person2);
     }
 
     @Test
-    public void compareSameID() {
+    void hashEqualPersonTrue(){
         Person person1 = new Person(1, "Hans", "Meier", 20, "Male");
         Person person2 = new Person(1, "Hans", "Meier", 20, "Male");
-        assertTrue(person1.compareTo(person2)==0);
+        assertEquals(person1.hashCode(), person2.hashCode());
     }
 
     @Test
-    public void compareDifferentIDFirstLarger() {
+    void hashEqualPersonFalse(){
+        Person person1 = new Person(1, "Hans", "Meier", 20, "Male");
+        Person person2 = new Person(2, "Peter", "Meier", 20, "Male");
+        assertNotEquals(person1.hashCode(), person2.hashCode());
+    }
+
+    @Test
+    void compareSameID() {
+        Person person1 = new Person(1, "Hans", "Meier", 20, "Male");
+        Person person2 = new Person(1, "Hans", "Meier", 20, "Male");
+        assertEquals(0, person1.compareTo(person2));
+    }
+
+    @Test
+    void compareDifferentIDFirstLarger() {
         Person person1 = new Person(4, "Hans", "Meier", 20, "Male");
         Person person2 = new Person(2, "Peter", "Meier", 20, "Male");
-        assertTrue(person1.compareTo(person2) ==1);
+        assertTrue(person1.compareTo(person2) >=1);
     }
 
     @Test
-    public void compareDifferentIDSecondLarger() {
+    void compareDifferentIDSecondLarger() {
         Person person1 = new Person(1, "Hans", "Meier", 20, "Male");
         Person person2 = new Person(4, "Peter", "Meier", 20, "Male");
-        assertTrue(person1.compareTo(person2) ==-1);
+        assertTrue(person1.compareTo(person2) <=-1);
     }
 
 }
