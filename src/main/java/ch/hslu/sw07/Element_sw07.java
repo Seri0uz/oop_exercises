@@ -2,7 +2,7 @@ package ch.hslu.sw07;
 
 import java.util.Objects;
 
-public class Element_sw07 {
+public class Element_sw07 implements Comparable<Element_sw07> {
     private final float tempCelsius;
     private final float meltingPoint;
     private final float boilingPoint;
@@ -55,4 +55,10 @@ public class Element_sw07 {
     public final int hashCode() {
         return Objects.hash(tempCelsius, meltingPoint, boilingPoint);
     }
+
+    @Override
+    public int compareTo(Element_sw07 element) {
+        return Float.compare(element.getTempCelsius(), tempCelsius);
+    }
+
 }

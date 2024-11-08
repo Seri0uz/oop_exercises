@@ -2,7 +2,7 @@ package ch.hslu.sw07;
 
 import java.util.Objects;
 
-public class Temperatur_sw07 {
+public class Temperatur_sw07 implements Comparable<Temperatur_sw07> {
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
     private float tempCelsius;
 
@@ -63,57 +63,6 @@ public class Temperatur_sw07 {
         return tempCelsius;
     }
 
-    /**
-     * Wertet das ausgewählte Element aus und übergibt Schmelzpunkt und Siedepunkt and Methode {@code getAggreagtionState}.
-     *
-     * @param   element
-     *          Das Element für welches der Aggregatzustand ermittelt werden soll
-     *          (N,Hg,Pb)
-     *
-     * @return  aggregate
-     *          Der Aggregatzustand des Elements bei Temperatur {@code tempCelsius}
-     */
-    public String getAggregationStateofElement(String element){
-        String aggregate = "";
-
-        switch (element){
-            case "N":
-                aggregate = getAggregationState(-210f,-196f);
-                break;
-            case "Hg":
-                aggregate = getAggregationState(-39f,357f);
-                break;
-            case "Pb":
-                aggregate = getAggregationState(327f,1749f);
-                break;
-            default:
-                aggregate = ("Angegebenes Element ist nicht vorhanden");
-                break;
-
-        };
-        return aggregate;
-    }
-
-    /**
-     * Vergleicht den Schmelzpunkt mit dem Siedepunkt und gibt den Aggregatzustand zurück.
-     *
-     * @param   meltingPoint
-     *
-     * @param   boilingPoint
-     *
-     * @return  "Aggregatszustand des Elements"
-     */
-    public String getAggregationState (float meltingPoint, float boilingPoint){
-        if (tempCelsius<meltingPoint){
-            return "fest";
-        }
-        else if (tempCelsius>=boilingPoint) {
-            return "gasförmig";
-        }
-        else{
-            return "flüssig";
-        }
-    }
 
     @Override
     public String toString() {
@@ -132,6 +81,11 @@ public class Temperatur_sw07 {
     @Override
     public final int hashCode() {
         return Objects.hash(tempCelsius);
+    }
+
+    @Override
+    public int compareTo(Temperatur_sw07 temperatur) {
+        return Float.compare(temperatur.tempCelsius, this.tempCelsius);
     }
 
 }

@@ -53,7 +53,7 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Equals, wenn ID gleich ist.
+     * Equals, wenn ID, Name, Nachname, Alter und Geschlecht gleich ist.
      * @param object
      * @return
      */
@@ -78,4 +78,8 @@ public class Person implements Comparable<Person> {
         return Long.compare(this.id, person.id);
     }
 
+    public static void main(String[] args) {
+        Person person = new Person(1, "Samuel", "Duss", 27, "male");
+        System.out.println(person);
+    }
 }
