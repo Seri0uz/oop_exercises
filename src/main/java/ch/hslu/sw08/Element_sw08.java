@@ -1,20 +1,24 @@
-package ch.hslu.sw07;
+package ch.hslu.sw08;
 
 import java.util.Objects;
 
-public class Element_sw07 implements Comparable<Element_sw07> {
-    private final float tempCelsius;
+public class Element_sw08 implements Comparable<Element_sw08> {
+    private float tempCelsius;
     private final float meltingPoint;
     private final float boilingPoint;
 
-    protected Element_sw07(float tempCelsius, float meltingPoint, float boilingPoint) {
-        this.tempCelsius = tempCelsius;
+    protected Element_sw08(float meltingPoint, float boilingPoint) {
+        this.tempCelsius = 20f;
         this.meltingPoint = meltingPoint;
         this.boilingPoint = boilingPoint;
     }
 
     public float getTempCelsius() {
-        return tempCelsius;
+        return this.tempCelsius;
+    }
+
+    public void setTempCelsius(float tempCelsius) {
+        this.tempCelsius = tempCelsius;
     }
 
     public float getMeltingPoint() {
@@ -27,11 +31,11 @@ public class Element_sw07 implements Comparable<Element_sw07> {
 
     public String getAggregateState() {
         if (tempCelsius < meltingPoint) {
-            return "fest";
+            return Aggregate.SOLID.getAggregate();
         } else if (tempCelsius >= boilingPoint) {
-            return "gasförmig";
+            return Aggregate.GAS.getAggregate();
         } else {
-            return "flüssig";
+            return Aggregate.LIQUID.getAggregate();
         }
 
     }
@@ -45,7 +49,8 @@ public class Element_sw07 implements Comparable<Element_sw07> {
     public final boolean equals(Object object) {
         if (this == object)
             return true;
-        return (object instanceof Element_sw07 element)
+        return (object instanceof Element_sw08 element)
+                && (Float.compare(element.tempCelsius, tempCelsius) == 0)
                 && (Float.compare(element.meltingPoint, meltingPoint) == 0)
                 && (Float.compare(element.boilingPoint, boilingPoint) == 0);
     }
@@ -56,7 +61,7 @@ public class Element_sw07 implements Comparable<Element_sw07> {
     }
 
     @Override
-    public int compareTo(Element_sw07 element) {
+    public int compareTo(Element_sw08 element) {
         return Float.compare(element.getTempCelsius(), tempCelsius);
     }
 

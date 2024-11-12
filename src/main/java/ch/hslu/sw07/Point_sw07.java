@@ -141,4 +141,8 @@ public class Point_sw07 implements Comparable<Point_sw07> {
         return compare;
 
     }
+    public static void main(String[] args) {
+        Point p = new Point(1,3);
+        System.out.println(p);
+    }
 }
