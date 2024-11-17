@@ -10,6 +10,10 @@ public final class Temperatur_sw09 implements Comparable<Temperatur_sw09> {
         this.kelvin = kelvin;
     }
 
+    public Temperatur_sw09(Temperatur_sw09 temperatur) {
+        this.kelvin = temperatur.kelvin;
+    }
+
     /**
      * Returns the temperature in Celsius.
      *

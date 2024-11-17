@@ -17,20 +17,20 @@ class Element_sw08Test {
     void getAggregateStateN() {
         N_sw08 n = new N_sw08();
         n.setTempCelsius(20);
-        assertEquals("gasförmig",n.getAggregateState());
+        assertEquals("gasförmig",n.getAggregateState().getAggregate());
     }
 
     @Test
     void getAggregateStateHg() {
         Hg_sw08 hg = new Hg_sw08();
         hg.setTempCelsius(120);
-        assertEquals("flüssig",hg.getAggregateState());
+        assertEquals("flüssig",hg.getAggregateState().getAggregate());
     }
 
     @Test
     void getAggregateStatePb() {
         Pb_sw08 pb = new Pb_sw08();
         pb.setTempCelsius(-15);
-        assertEquals("fest",pb.getAggregateState());
+        assertEquals("fest",pb.getAggregateState().getAggregate());
     }
 }

@@ -36,7 +36,7 @@ class TemperaturVerlaufTest {
         temperaturVerlauf.add(new Temperatur_sw08(560f));
         temperaturVerlauf.add(new Temperatur_sw08(330f));
         Temperatur_sw08 maxTemperatur = temperaturVerlauf.getMax();
-        assertEquals(560f,maxTemperatur.getKelvin(),0.001);
+        assertEquals(560f,maxTemperatur.getKelvin(),0.001f);
     }
 
     @Test
@@ -50,10 +50,10 @@ class TemperaturVerlaufTest {
     void getMinTemperatur() {
         TemperaturVerlauf temperaturVerlauf = new TemperaturVerlauf();
         temperaturVerlauf.add(new Temperatur_sw08(267f));
-        temperaturVerlauf.add(new Temperatur_sw08(560f));
-        temperaturVerlauf.add(new Temperatur_sw08(330f));
+        temperaturVerlauf.add(new Temperatur_sw08(500f));
+        temperaturVerlauf.add(new Temperatur_sw08(268f));
         Temperatur_sw08 minTemperatur = temperaturVerlauf.getMin();
-        assertEquals(267f,minTemperatur.getKelvin(),0.001);
+        assertEquals(267f,minTemperatur.getKelvin(),0.001f);
     }
 
     @Test
@@ -70,7 +70,7 @@ class TemperaturVerlaufTest {
         temperaturVerlauf.add(new Temperatur_sw08(330f));
         temperaturVerlauf.add(new Temperatur_sw08(100f));
         Temperatur_sw08 averageTemperatur = temperaturVerlauf.getAverage();
-        assertEquals(314.25f,averageTemperatur.getKelvin(),0.001);
+        assertEquals(314.25f,averageTemperatur.getKelvin(),0.001f);
     }
 
 

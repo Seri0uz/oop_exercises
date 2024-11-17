@@ -14,12 +14,12 @@ class Temperatur_sw08Test {
 
     @Test
     void convertKelvinToCelsius() {
-        assertEquals(26.85f,Temperatur_sw08.convertKelvinToCelsius(300),0.01);
+        assertEquals(26.85f,Temperatur_sw08.convertKelvinToCelsius(300f),0.01f);
     }
 
     @Test
     void convertCelsiusToKelvin() {
-        assertEquals(283.15,Temperatur_sw08.convertCelsiusToKelvin(10),0.01);
+        assertEquals(283.15f,Temperatur_sw08.convertCelsiusToKelvin(10f),0.01f);
     }
 
 }

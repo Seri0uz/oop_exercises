@@ -29,13 +29,13 @@ public class Element_sw08 implements Comparable<Element_sw08> {
         return boilingPoint;
     }
 
-    public String getAggregateState() {
+    public Aggregate getAggregateState() {
         if (tempCelsius < meltingPoint) {
-            return Aggregate.SOLID.getAggregate();
+            return Aggregate.SOLID;
         } else if (tempCelsius >= boilingPoint) {
-            return Aggregate.GAS.getAggregate();
+            return Aggregate.GAS;
         } else {
-            return Aggregate.LIQUID.getAggregate();
+            return Aggregate.LIQUID;
         }
 
     }

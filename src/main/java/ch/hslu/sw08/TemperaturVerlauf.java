@@ -45,7 +45,7 @@ public class TemperaturVerlauf implements TemperaturCollection {
     public final Temperatur_sw08 getMax() {
         if (temperatures.isEmpty())
             return null;
-        return Collections.max(temperatures);
+        return new Temperatur_sw08(Collections.max(temperatures));
     }
 
     /**
@@ -57,7 +57,7 @@ public class TemperaturVerlauf implements TemperaturCollection {
     public final Temperatur_sw08 getMin() {
         if (temperatures.isEmpty())
             return null;
-        return Collections.min(temperatures);
+        return new Temperatur_sw08(Collections.min(temperatures));
     }
 
     /**
@@ -70,13 +70,12 @@ public class TemperaturVerlauf implements TemperaturCollection {
         float tempSum = 0.0f;
         if (this.temperatures.isEmpty())
             return null;
-        else {
-            for (final Temperatur_sw08 temperatur : temperatures) {
-                tempSum += temperatur.getKelvin();
-            }
-            float tempAverage = tempSum / this.getCount();
-            return new Temperatur_sw08(tempAverage);
+
+        for (final Temperatur_sw08 temperatur : temperatures) {
+            tempSum += temperatur.getKelvin();
         }
+        float tempAverage = tempSum / this.getCount();
+        return new Temperatur_sw08(tempAverage);
     }
 
     public static void main(final String[] args) {
