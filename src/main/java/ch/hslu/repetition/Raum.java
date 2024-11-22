@@ -1,10 +1,11 @@
-package ch.hslu.sw09;
+package ch.hslu.repetition;
 
 import java.util.Objects;
 
-public final class Raum {
+public final class Raum implements Comparable<Raum> {
     private int raumID;
     private int raumCapacity;
+    protected RaumState raumState;
     protected Raum(final int raumID, final int raumCapacity) {
         if (validateInvalidRaumID(raumID))
         {
@@ -16,6 +17,7 @@ public final class Raum {
         }
         this.raumID = raumID;
         this.raumCapacity = raumCapacity;
+        this.raumState = RaumState.FREE;
     }
     public int getRaumID() {
         return raumID;
@@ -49,7 +51,9 @@ public final class Raum {
         return Objects.hash(raumID);
     }
 
-
-
+    @Override
+    public int compareTo(Raum raum) {
+        return Integer.compare(this.raumID, raum.raumID);
+    }
 
 }
