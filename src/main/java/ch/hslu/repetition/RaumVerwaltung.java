@@ -1,20 +1,14 @@
 package ch.hslu.repetition;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Collections;
+import java.util.*;
 
 
 public final class RaumVerwaltung {
-    final List<Raum> raums = new ArrayList<>();
+    final Set<Raum> raums = new TreeSet<>();
 
     public boolean add(final Raum raum) {
-        if (!raums.isEmpty()) {
-            sort();
-        }
         return this.raums.add(raum);
-
     }
 
     public void clear() {
@@ -25,14 +19,10 @@ public final class RaumVerwaltung {
         return this.raums.size();
     }
 
-    public void sort() {
-        Collections.sort(this.raums);
-    }
-
     public Raum get(final float raumID) {
         for (Raum raum : raums) {
             if (raumID == raum.getRaumID()) {
-                return this.raums.get(raums.indexOf(raum));
+                return raum;
             }
         }
         return null;

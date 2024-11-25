@@ -1,14 +1,13 @@
 @startuml
 'https://plantuml.com/class-diagram
 interface List {
-
++ add(e:E) : boolean
++ clear() : void
++ getCount() : int
 }
 
 class TemperaturVerlauf {
 + TemperaturVerlauf()
-+ add(e:E) : boolean
-+ clear() : void
-+ getCount() : int
 }
 
 List <-- TemperaturVerlauf

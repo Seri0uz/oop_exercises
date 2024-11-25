@@ -48,6 +48,8 @@ class RaumTest {
     void getRaum() {
         RaumVerwaltung raum = new RaumVerwaltung();
         raum.add(new Raum(690,12));
+        raum.add(new Raum(691,12));
+        raum.add(new Raum(689,12));
         assertEquals(new Raum(690,12),raum.get(690));
     }
 
