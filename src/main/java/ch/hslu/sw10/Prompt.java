@@ -9,11 +9,24 @@ public class Prompt {
     private static final Logger LOG =
             LoggerFactory.getLogger(Prompt.class);
 
-    public static void main(String[] args) {
-        TemperaturVerlauf temperaturVerlauf = new TemperaturVerlauf();
+    TemperaturVerlauf temperaturVerlauf = new TemperaturVerlauf();
 
-        temperaturVerlauf.addPropertyChangeListenerMax(event -> LOG.info("Maximale Temperatur wurde geändert von: {} zu {}", event.getOldValue(), event.getNewValue()));
-        temperaturVerlauf.addPropertyChangeListenerMin(event -> LOG.info("Minimale Temperatur wurde geändert von: {} zu {}", event.getOldValue(), event.getNewValue()));
+    public Prompt() {
+
+        this.temperaturVerlauf.addListener(this::handleTemperaturEvents);
+
+    }
+
+    public void handleTemperaturEvents(TemperaturEventInterface event) {
+       LOG.info(
+               "New {} temperature with new value {}, old value was {}",
+               event.getEventType(),
+               event.getNewValue(),
+               event.getOldValue() !=null ? event.getOldValue() : "no previous value"
+       );
+    }
+
+    public void tryScanner(){
         String input;
         Scanner scanner = new Scanner(System.in);
         do {
@@ -24,7 +37,7 @@ public class Prompt {
                     float value = Float.parseFloat(input);
                     temperaturVerlauf.add(Temperatur.createFromCelsius(value));
                     LOG.info("Temperatur in Celsius = {}", value);
-                    LOG.info("Temperatur in Kelvin = {}",Temperatur.convertCelsiusToKelvin(value));
+                    LOG.info("Temperatur in Kelvin = {}", Temperatur.convertCelsiusToKelvin(value));
                 }
             }
             catch (NumberFormatException e) {
@@ -39,5 +52,10 @@ public class Prompt {
         LOG.info("Programm wird beendet");
         System.out.println("Temperatur Statistik: " + temperaturVerlauf);
         System.out.println("Programm beendet.");
+    }
+
+    public static void main(String[] args) {
+        Prompt prompt = new Prompt();
+        prompt.tryScanner();
     }
 }

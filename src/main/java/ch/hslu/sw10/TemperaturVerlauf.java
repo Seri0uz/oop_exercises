@@ -1,31 +1,23 @@
 package ch.hslu.sw10;
 
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 public final class TemperaturVerlauf implements TemperaturCollection {
-    final List<Temperatur> temperatures = new ArrayList<>();
+    private final List<Temperatur> temperatures = new ArrayList<>();
 
-    private final List<PropertyChangeListener> temperaturMinListener = new ArrayList<>();
-    private final List<PropertyChangeListener> temperaturMaxListener = new ArrayList<>();
+    private final List<TemperaturEventListener> listeners = new ArrayList<>();
+
+    private Temperatur tempMax = null;
+    private Temperatur tempMin = null;
 
 
     public boolean add(final Temperatur temperatur) {
-        if (!temperatures.isEmpty()) {
-            Temperatur max = Collections.max(temperatures);
-            Temperatur min = Collections.min(temperatures);
-            if (temperatur.getKelvin() > max.getKelvin()) {
-                final PropertyChangeEvent event = new PropertyChangeEvent(this, "temperaturMaxListener", max.getKelvin(), temperatur.getKelvin());
-                this.firePropertyChangeEventMax(event);
-            }
-            if (temperatur.getKelvin() < min.getKelvin()) {
-                final PropertyChangeEvent event = new PropertyChangeEvent(this, "temperaturMinListener", min.getKelvin(), temperatur.getKelvin());
-                this.firePropertyChangeEventMin(event);
-            }
-        }
+        checkForTemperaturLimits(temperatur);
         return this.temperatures.add(temperatur);
     }
 
@@ -41,15 +33,17 @@ public final class TemperaturVerlauf implements TemperaturCollection {
 
     public Temperatur getMax() {
         if (temperatures.isEmpty())
-            return null;
-        return new Temperatur(Collections.max(temperatures));
+            return tempMax = null;
+        tempMax = Collections.max(temperatures);
+        return new Temperatur(tempMax);
     }
 
 
     public Temperatur getMin() {
         if (temperatures.isEmpty())
-            return null;
-        return new Temperatur(Collections.min(temperatures));
+            return tempMin = null;
+        tempMin = Collections.min(temperatures);
+        return new Temperatur(tempMin);
     }
 
 
@@ -65,49 +59,43 @@ public final class TemperaturVerlauf implements TemperaturCollection {
         return Temperatur.createFromKelvin(tempAverage);
     }
 
-    public void addPropertyChangeListenerMax(final PropertyChangeListener listener) {
+    public void checkForTemperaturLimits(Temperatur temperatur) {
+        if (this.tempMax == null || temperatur.getCelsius() > this.tempMax.getCelsius()) {
+            Temperatur previousMax = this.tempMax;
+            this.tempMax = temperatur;
+            TemperaturEvent event = new TemperaturEvent(this, previousMax, temperatur, EventType.MAX);
+            this.fireTemperaturEvent(event);
+        }
+        if (this.tempMin == null || temperatur.getCelsius() < this.tempMin.getCelsius()) {
+            Temperatur previousMin = this.tempMin;
+            this.tempMin = temperatur;
+            TemperaturEvent event = new TemperaturEvent(this, previousMin, temperatur, EventType.MIN);
+            this.fireTemperaturEvent(event);
+        }
+    }
+
+    public void addListener(final TemperaturEventListener listener) {
         if (listener != null) {
-            this.temperaturMaxListener.add(listener);
+            this.listeners.add(listener);
         }
     }
 
-    public void removePropertyChangeListenerMax(final PropertyChangeListener listener) {
+    public void removeListener(final PropertyChangeListener listener) {
         if (listener != null) {
-            this.temperaturMaxListener.remove(listener);
+            this.listeners.remove(listener);
         }
     }
 
-    public void addPropertyChangeListenerMin(final PropertyChangeListener listener) {
-        if (listener != null) {
-            this.temperaturMinListener.add(listener);
+    private void fireTemperaturEvent(TemperaturEvent event) {
+        for (final TemperaturEventListener listener : this.listeners) {
+            listener.handleTemperaturEvent(event);
         }
     }
 
-    public void removePropertyChangeListenerMin(final PropertyChangeListener listener) {
-        if (listener != null) {
-            this.temperaturMinListener.remove(listener);
-        }
-    }
-
-    private void firePropertyChangeEventMax(final PropertyChangeEvent event) {
-        for (final PropertyChangeListener listener : this.temperaturMaxListener) {
-            listener.propertyChange(event);
-        }
-    }
-
-    private void firePropertyChangeEventMin(final PropertyChangeEvent event) {
-        for (final PropertyChangeListener listener : this.temperaturMinListener) {
-            listener.propertyChange(event);
-        }
-    }
 
     @Override
     public String toString() {
         return "Temp Count: " + this.getCount() + "\nAverage Temp: " + this.getAverage() + "\nMax: " + this.getMax() + "\nMin: " + this.getMin();
-    }
-
-    public static void main(final String[] args) {
-        TemperaturVerlauf temperaturVerlauf = new TemperaturVerlauf();
     }
 
 }

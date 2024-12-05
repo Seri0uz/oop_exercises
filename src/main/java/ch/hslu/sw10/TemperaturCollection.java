@@ -5,13 +5,14 @@ public interface TemperaturCollection {
     /**
      * Adds a temperature record to the collection.
      *
-     * @param temperatur the Temperatur_sw08 object to add.
+     * @param temperatur the Temperatur object to add.
      * @return true if the temperature was added; false if it was a duplicate.
      */
     boolean add(Temperatur temperatur);
 
     /**
      * Clears all temperature records from the collection.
+     *
      */
     void clear();
 
@@ -45,6 +46,13 @@ public interface TemperaturCollection {
      *         in Kelvin, or null if the collection is empty.
      */
     Temperatur getAverage();
+
+    /**
+     * Checks if newly added temperature is min or max and fire an event if that's the case.
+     *
+     * @param temperatur the Temperatur object to check.
+     */
+    void checkForTemperaturLimits(Temperatur temperatur);
 
 
 }
