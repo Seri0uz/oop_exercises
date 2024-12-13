@@ -9,7 +9,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Motor implements Switchable {
+public class Motor {
     private final List<PropertyChangeListener> changeListeners = new ArrayList<>();
     private int rpm;
     private State state;
@@ -21,47 +21,30 @@ public class Motor implements Switchable {
         rpm = 0;
         state = State.OFF;
     }
-    @Override
-    public void switchOn() {
-        if (isSwitchedOff()){
-            this.state = State.ON;
-            this.rpm = 1200;
-            final PropertyChangeEvent event = new PropertyChangeEvent(this, "engine", State.OFF.getState(), State.ON.getState());
-            this.firePropertyChangeEvent(event);
-            LOG.info("Motor Switched on");
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+
+    public int getRpm() {
+        return rpm;
+    }
+
+    public void setRpm(int rpm) {
+        if (validateRpm(this.rpm)) {
+            throw new IllegalArgumentException("RPM out of range");
         }
+        this.rpm = rpm;
     }
 
-    @Override
-    public void switchOff() {
-        if (isSwitchedOn()){
-            this.state = State.OFF;
-            final PropertyChangeEvent event = new PropertyChangeEvent(this, "engine", State.ON.getState(), State.OFF.getState());
-            this.firePropertyChangeEvent(event);
-            LOG.info("Motor Switched off");
-        }
+    public static boolean validateRpm(int rpm) {
+        return rpm >5000;
     }
 
-    @Override
-    public boolean isSwitchedOn() {
-        return this.state == State.ON;
-    }
-
-    @Override
-    public boolean isSwitchedOff() {
-        return this.state == State.OFF;
-    }
-
-    private void firePropertyChangeEvent(final PropertyChangeEvent event) {
-        for (final PropertyChangeListener listener : this.changeListeners) {
-            listener.propertyChange(event);
-        }
-    }
-
-    public void addPropertyChangeListener(final PropertyChangeListener listener) {
-        if (listener != null) {
-            this.changeListeners.add(listener);
-        }
-    }
 
 }
