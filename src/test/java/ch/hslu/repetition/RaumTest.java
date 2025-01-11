@@ -1,10 +1,21 @@
 package ch.hslu.repetition;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class RaumTest {
+    Raum raum;
+    RaumVerwaltung raumVerwaltung;
+
+    @BeforeEach
+    void prepareTest() {
+        this.raum = null;
+        this.raumVerwaltung = new RaumVerwaltung();
+        this.raumVerwaltung.addListener(this::handleRaumVerwaltungEvent);
+    }
+
+
     @Test
     void testRaumConstructorInvalidID() {
         final Exception e = assertThrows(IllegalArgumentException.class, () -> new Raum(99,30));
@@ -50,13 +61,41 @@ class RaumTest {
         raum.add(new Raum(690,12));
         raum.add(new Raum(691,12));
         raum.add(new Raum(689,12));
-        assertEquals(new Raum(690,12),raum.get(690));
+        assertEquals(new Raum(690,12),raum.getRaumID(690));
     }
 
     @Test
     void getRaumNotFound() {
         RaumVerwaltung raum = new RaumVerwaltung();
         raum.add(new Raum(690,12));
-        assertNull(raum.get(600));
+        assertNull(raum.getRaumID(600));
+    }
+
+    @Test
+    void getSuitableRaum() {
+        RaumVerwaltung raum = new RaumVerwaltung();
+        raum.add(new Raum(690,9));
+        raum.add(new Raum(691,10));
+        raum.add(new Raum(693,30));
+        assertEquals(new Raum(691,10),raum.bookRaum(10));
+    }
+
+    @Test
+    void getSuitableRaumNotFound() {
+        RaumVerwaltung raum = new RaumVerwaltung();
+        raum.add(new Raum(690,9));
+        assertNull(raum.bookRaum(10));
+    }
+
+    @Test
+    void testRaumEventBooked() {
+        Raum raum = new Raum(790,23);
+        this.raumVerwaltung.add(raum);
+        this.raumVerwaltung.bookRaum(23);
+        assertEquals(raum, this.raum);
+    }
+
+    void handleRaumVerwaltungEvent(RaumEvent event) {
+        raum = event.getRaum();
     }
 }

@@ -9,7 +9,7 @@ public class Prompt {
     private static final Logger LOG =
             LoggerFactory.getLogger(Prompt.class);
 
-    TemperaturVerlauf temperaturVerlauf = new TemperaturVerlauf();
+    private final TemperaturVerlauf temperaturVerlauf = new TemperaturVerlauf();
 
     public Prompt() {
 

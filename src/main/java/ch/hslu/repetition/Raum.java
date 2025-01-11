@@ -3,8 +3,8 @@ package ch.hslu.repetition;
 import java.util.Objects;
 
 public final class Raum implements Comparable<Raum> {
-    private int raumID;
-    private int raumCapacity;
+    private final int raumID;
+    private final int raumCapacity;
     protected RaumState raumState;
     protected Raum(final int raumID, final int raumCapacity) {
         if (validateInvalidRaumID(raumID))
@@ -25,6 +25,15 @@ public final class Raum implements Comparable<Raum> {
     public int getRaumCapacity() {
         return raumCapacity;
     }
+
+    public boolean getRaumState() {
+        return raumState == RaumState.FREE;
+    }
+
+    public void setRaumState(final RaumState raumState) {
+        this.raumState = raumState;
+    }
+
     public boolean validateInvalidRaumID (int raumID) {
         return raumID < 100 || raumID > 999;
     }
@@ -35,7 +44,7 @@ public final class Raum implements Comparable<Raum> {
 
     @Override
     public String toString() {
-        return "Raum ID: " + raumID + ", Capacity: " + raumCapacity;
+        return "Raum ID: " + raumID;
     }
 
     @Override

@@ -1,5 +1,5 @@
 package ch.hslu.repetition;
 
-enum RaumState {
+public enum RaumState {
     FREE, BOOKED, BLOCKED
 }

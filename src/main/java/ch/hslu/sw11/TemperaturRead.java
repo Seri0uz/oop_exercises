@@ -29,6 +29,7 @@ public final class TemperaturRead {
                     Temperatur temperatur = Temperatur.createFromCelsius(temperature,timestamp);
                     temperaturVerlauf.add(temperatur);
                 }
+                return temperaturVerlauf;
 
             } catch (IOException e) {
                 LOG.error(e.getMessage(), e);
