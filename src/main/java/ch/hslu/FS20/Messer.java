@@ -1,4 +1,4 @@
-package ch.hslu.demo;
+package ch.hslu.FS20;
 
 import java.util.ArrayList;
 import java.util.List;

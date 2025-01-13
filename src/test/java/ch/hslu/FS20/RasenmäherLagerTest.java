@@ -1,4 +1,4 @@
-package ch.hslu.demo;
+package ch.hslu.FS20;
 
 import org.junit.jupiter.api.Test;
 

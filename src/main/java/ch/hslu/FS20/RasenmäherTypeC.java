@@ -1,4 +1,6 @@
-package ch.hslu.demo;
+package ch.hslu.FS20;
+
+import ch.hslu.demo.Antrieb;
 
 public class RasenmäherTypeC extends Rasenmäher{
 

@@ -1,4 +1,4 @@
-package ch.hslu.demo;
+package ch.hslu.FS20;
 
 public enum Generation {
     G1(2012),G2(2013),G3(2019);

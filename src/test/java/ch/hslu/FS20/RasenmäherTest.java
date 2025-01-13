@@ -1,8 +1,9 @@
-package ch.hslu.demo;
+package ch.hslu.FS20;
 
+import ch.hslu.demo.*;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,7 +64,7 @@ class RasenmäherTest {
     @Test
     void testGenerationTypeA() {
         Rasenmäher rasenmäher = new RasenmäherTypeA(new Antrieb());
-        assertEquals(Generation.G1,rasenmäher.getGeneration());
+        Assertions.assertEquals(Generation.G1,rasenmäher.getGeneration());
     }
 
     @Test
